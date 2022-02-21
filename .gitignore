@@ -1,4 +1,5 @@
 # Project exclude paths
-/.idea
-/Reports
-/target
+.idea/*
+target/
+Reports/*
+!Reports/*/
