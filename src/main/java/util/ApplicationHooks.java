@@ -1,6 +1,6 @@
-package applicationHooks;
+package util;
 
-import factory.DriverFactory;
+import util.DriverFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
@@ -11,7 +11,6 @@ import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
 
 import java.lang.reflect.Method;
-import java.util.Date;
 import java.util.Properties;
 
 

@@ -5,8 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.*;
 
 @CucumberOptions(
-        features = {"./src/test/java/features/LoginPage.feature"},
-        glue = {"stepDefinitions", "applicationHooks"},
+        features = {"./src/test/java/features"},
+        glue = {"stepDefinitions", "util"},
         plugin = {
                 "summary", "pretty", "html:Reports/CucumberReport/Reports.html",
                 "json:Reports/CucumberReport/Report",

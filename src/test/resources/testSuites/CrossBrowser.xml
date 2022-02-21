@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestSuite" parallel="tests" thread-count="1">
+<suite name="TestSuite" data-provider-thread-count="1" parallel="tests" thread-count="2">
     <test name="ChromeTest">
         <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="testRunners.ParallelRunner"></class>
+        </classes>
+    </test>
+    <test name="SafariTest">
+        <parameter name="browser" value="safari"/>
         <classes>
             <class name="testRunners.ParallelRunner"></class>
         </classes>
