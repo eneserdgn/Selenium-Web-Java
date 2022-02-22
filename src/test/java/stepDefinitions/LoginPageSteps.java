@@ -12,43 +12,49 @@ public class LoginPageSteps {
 
     @Given("user is on login page")
     public void isOnLoginPage() {
-        loginPage.getLoginPageTitle();
+        loginPage.goLogin("isparta");
+        loginPage.checkTitle("Isparta Online Yemek Siparişi, Paket Servis - Yemek Sepeti");
+
     }
 
     @When("user enters email {string}")
     public void entersEmail(String email) {
-        loginPage.setEmail(email);
+        loginPage.typeEmail(email);
     }
 
     @When("user enters password {string}")
     public void entersPass(String pass) {
-        loginPage.setPassword(pass);
+        loginPage.typePassword(pass);
     }
 
     @When("user clicks on Login button")
     public void clicksLoginButton() {
-        loginPage.clickLoginButton();
+        loginPage.clickLogin();
     }
 
     @When("user should see popup message {string}")
     public void shouldSeePageTitle(String message) {
         loginPage.checkPopupMessage(message);
-        loginPage.clickPopupButton();
+    }
+
+    @When("user click SignUp")
+    public void userClickSignUp() {
+        loginPage.clickSignupButton();
     }
 
     @Then("user should see empty mail message {string}")
     public void emptyMailMessage(String message) {
-        loginPage.checkEmptyMail(message);
+        loginPage.checkEmptyMailMessage(message);
     }
 
     @Then("user should see empty password message {string}")
     public void emptyPassMessage(String message) {
-        loginPage.checkEmptyPass(message);
+        loginPage.checkEmptyPasswordMessage(message);
     }
 
     @When("user clicks popup close button")
     public void userClicksPopupCloseButton() {
-        loginPage.clickPopupCloseButton();
+        loginPage.clickPopupClose();
     }
 
     @Then("user should see name {string}")
@@ -56,23 +62,4 @@ public class LoginPageSteps {
         loginPage.checkName(name);
     }
 
-    @When("user click SignUp")
-    public void userClickSignUp() {
-        loginPage.clickSignUp();
-    }
-
-    @When("user enters email {string} on SignUp Page")
-    public void userEntersEmailOnSignUpPage(String mail) {
-        loginPage.setSignUpEmail(mail);
-    }
-
-    @When("user clicks SignUp Button")
-    public void userClicksSignUpButton() {
-        loginPage.clickSignUpButton();
-    }
-
-    @Then("user should see false mail message {string}")
-    public void userShouldSeeFalseMailMessage(String message) {
-        loginPage.checkFalseMailMessage(message);
-    }
 }

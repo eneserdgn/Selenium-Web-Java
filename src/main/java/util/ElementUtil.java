@@ -50,6 +50,29 @@ public class ElementUtil {
     }
 
     /**
+     *
+     * @param element
+     * @param under
+     * @param text
+     */
+    public void clickTextContainsUnderElement(By element,By under, String text) {
+        boolean check = false;
+        List<WebElement> elements = findElements(element);
+        for (WebElement elem : elements) {
+            if (elem.getText().contains(text)) {
+                WebElement elem2 = elem.findElement(under);
+                elem2.click();
+                scrollToElement(elem2);
+                check = true;
+                break;
+            }
+        }
+        if (check == false) {
+            Assert.fail("İstediğin textte element bulamadı");
+        }
+    }
+
+    /**
      * @param element
      * @param text
      */
