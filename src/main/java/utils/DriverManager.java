@@ -11,15 +11,11 @@ import java.time.Duration;
 
 public class DriverManager {
     private static ThreadLocal<WebDriver> driverThread = new ThreadLocal<>();
-    private static final String BROWSER_TYPE = "chrome";
 
     private DriverManager() {
     }
 
     public static WebDriver getDriver() {
-        if (driverThread.get() == null) {
-            driverThread.set(createDriver());
-        }
         return driverThread.get();
     }
 
@@ -30,9 +26,9 @@ public class DriverManager {
         }
     }
 
-    private static WebDriver createDriver() {
+    public static WebDriver createDriver(String browser, String url, int implictyWait) {
         WebDriver driver;
-        switch (BROWSER_TYPE) {
+        switch (browser) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
@@ -44,9 +40,10 @@ public class DriverManager {
             default:
                 throw new RuntimeException("Invalid browser type provided!");
         }
-        driver.get("https://www.google.com/");
+        driverThread.set(driver);
+        driver.get(url);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implictyWait));
         return driver;
     }
 }

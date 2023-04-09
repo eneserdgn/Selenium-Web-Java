@@ -4,9 +4,11 @@ import com.aventstack.extentreports.MediaEntityBuilder;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import io.cucumber.java.*;
+import io.github.bonigarcia.wdm.config.Config;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
 import java.io.IOException;
 
 public class Hooks {
@@ -14,7 +16,7 @@ public class Hooks {
 
     // Cucumber Hooks
     @BeforeAll
-    public static void beforeAll() throws IOException {
+    public static void beforeAll() {
     }
 
     @AfterAll
@@ -22,17 +24,18 @@ public class Hooks {
     }
 
     @Before()
-    public void beforeScenario(Scenario scenario) {
-        // Cucumber before hook code
-        driver = DriverManager.getDriver();
+    public void beforeScenario() {
+        String browser = ConfigReader.getProperty("browser");
+        String url = ConfigReader.getProperty("url");
+        String implicityWait = ConfigReader.getProperty("implicityWait");
+        driver = DriverManager.createDriver(browser, url, Integer.parseInt(implicityWait));
     }
 
     @After()
     public void afterScenario(Scenario scenario) {
         // Cucumber after hook code
         DriverManager.quitDriver();
-        if(scenario.isFailed())
-        {
+        if (scenario.isFailed()) {
             ExtentCucumberAdapter.getCurrentStep().log(Status.FAIL, MediaEntityBuilder.createScreenCaptureFromBase64String(getBase64Screenshot()).build());
         }
     }
@@ -47,8 +50,7 @@ public class Hooks {
 
     }
 
-    public String getBase64Screenshot()
-    {
+    public String getBase64Screenshot() {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
     }
 
